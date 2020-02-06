@@ -7,3 +7,9 @@ CREATE TABLE students (
   house varchar(255),
   age INT
 );
+
+CREATE TABLE houses (
+  id SERIAL PRIMARY key,
+  house_name varchar(255),
+  url varchar(255)
+);
