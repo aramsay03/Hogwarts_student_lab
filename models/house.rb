@@ -13,14 +13,11 @@ class House
 
   def save()
     sql = "INSERT INTO houses
-    (
-      house_name,
-      url
-      ) VALUES (
-        $1, $2
-        )
-        RETURNING id"
-        values = [@house_name, @url]
+    (house_name, url)
+    VALUES
+    ($1, $2)
+    RETURNING id"
+    values = [@house_name, @url]
     house = SqlRunner.run(sql, values).first
     @id = house['id'].to_i
   end

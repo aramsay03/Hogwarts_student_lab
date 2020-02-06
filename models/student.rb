@@ -5,26 +5,21 @@ class Student
   attr_reader :id
   attr_accessor :first_name, :last_name, :age, :house_id
 
-def initialize(options)
-  @id = options['id'].to_i
-  @first_name = options['first_name']
-  @last_name = options['last_name']
-  @age = options['age'].to_i
-  @house_id = options['house_id'].to_i
-end
+  def initialize(options)
+    @id = options['id'].to_i
+    @first_name = options['first_name']
+    @last_name = options['last_name']
+    @age = options['age'].to_i
+    @house_id = options['house_id'].to_i
+  end
 
   def save()
     sql = "INSERT INTO students
-    (
-      first_name,
-      last_name,
-      age,
-      house_id
-      ) VALUES (
-        $1, $2, $3, $4
-        )
-        RETURNING id"
-        values = [@first_name, @last_name, @age, @house_id]
+    (first_name, last_name, age, house_id)
+    VALUES
+    ($1, $2, $3, $4)
+    RETURNING id"
+    values = [@first_name, @last_name, @age, @house_id]
     student = SqlRunner.run(sql, values).first
     @id = student['id'].to_i
   end
@@ -54,8 +49,8 @@ end
   end
 
   def self.delete_all()
-      sql = "DELETE FROM students;"
-      SqlRunner.run(sql)
+    sql = "DELETE FROM students;"
+    SqlRunner.run(sql)
   end
 
 end
